@@ -1,23 +1,20 @@
 #!/usr/bin/env python
 
 from dnacentersdk import api
-from lehost import host, x, y
+from objectify import objectify
 
-def main():
-    muh_interface = api.DNACenterAPI(
-        base_url=host,
-        username=x,
-        password=y,
-        verify=False, 
-    )
+def list_devices():
+    object = objectify()
+    devices = object.devices.get_device_list()
 
-    devices = muh_interface.devices.get_device_list()
-
-    # for debugging
+    # for testing/debugging
     import json; print(json.dumps(devices, indent=4))
     # for device in devices["response"]:
-    #     print(f"ID: {device['id']}, Management IP: {device['managementIpAddress']}")        
+    #     print(f"ID: {device['id']}, Management IP: {device['managementIpAddress']}") 
 
+def main():
+     list_devices()
+      
 
 if __name__ == "__main__":
     main()
