@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Uses get_device_list() method to obtain and write device IDs and management IPs to devices.json file. MG, 10.15.25 
+"""
+
 from dnacentersdk import api
 from objectify import objectify
 import json
@@ -14,14 +18,10 @@ def list_devices():
     management_ips = [iterator['managementIpAddress'] for iterator in devices['response']]
     
     with open('devices.json', 'w') as dev_file:
-        # create dictionary objects
+        # create dictionary objects and write to devices.json file 
         device_dict = dict(zip(device_ids, management_ips))   
         json.dump(device_dict, dev_file, indent=4)
 
-    # for testing/debugging
-    # import json; print(json.dumps(devices, indent=4))
-    # for device in devices["response"]:
-    #     print(f"ID: {device['id']}, Management IP: {device['managementIpAddress']}") 
 
 def main():
      list_devices()
@@ -29,4 +29,3 @@ def main():
 
 if __name__ == "__main__":  
     main()
-    
